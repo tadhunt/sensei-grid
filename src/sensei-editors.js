@@ -278,7 +278,7 @@
 
                 // load the datepicker
                 $('.datepicker').pickadate({
-                    format: 'ddd mmm dd yyyy',
+                    format: 'yyyy-mm-dd',
                     editable: true,
                     today: false,
                     clear: false,
