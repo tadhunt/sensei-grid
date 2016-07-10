@@ -269,15 +269,13 @@
                 this.editor = document.createElement("div");
                 this.editor.className = "sensei-grid-editor sensei-grid-date-editor";
                 var $wrapper = $("<div>", {class: "sensei-grid-date-wrapper"});
-                $wrapper.append($("<input>", {
-                    type: "text",
-                    class: "datepicker"
-                }));
+                var dateInput =  $("<input>", { type: "text", class: "datepicker" });
+                $wrapper.append(dateInput);
                 $(this.editor).append($wrapper);
                 this.grid.$el.append(this.editor);
 
                 // load the datepicker
-                $('.datepicker').pickadate({
+                dateInput.pickadate({
                     format: 'yyyy-mm-dd',
                     editable: true,
                     today: false,
@@ -286,7 +284,7 @@
                 });
 
                 // store datepicker instance
-                this.datepicker = $(".datepicker").pickadate('picker');
+                this.datepicker = dateInput.pickadate('picker');
             }
         },
         show: function () {
