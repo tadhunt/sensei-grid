@@ -155,6 +155,73 @@ $(function () {
 
     // render grid
     grid.render();
+ 
+// ------------------
+    // initialize grid with data, column mapping and options
+    var gridb = $(".sensei-grid-broken").grid(data, columns, options);
+
+    // register editors that are bundled with sensei grid
+    gridb.registerEditor(BasicEditor);
+    gridb.registerEditor(BooleanEditor);
+    gridb.registerEditor(TextareaEditor);
+    gridb.registerEditor(SelectEditor);
+    gridb.registerEditor(DateEditor);
+    gridb.registerEditor(AutocompleteEditor);
+    gridb.registerEditor(DisabledEditor);
+
+    // register row actions
+    // gridb.registerRowAction(BasicRowActions);
+
+    // example listeners on grid events
+    gridb.events.on("editor:save", function (data, $cell) {
+        //console.info("save cell:", data, $cell);
+    });
+    gridb.events.on("editor:load", function (data, $cell) {
+        //console.info("set value in editor:", data, $cell);
+    });
+    gridb.events.on("cell:select", function ($cell) {
+        console.info("active cell:", $cell);
+    });
+    gridb.events.on("cell:clear", function (oldValue, $cell) {
+        console.info("clear cell:", oldValue, $cell);
+    });
+    gridb.events.on("cell:deactivate", function ($cell) {
+        console.info("cell deactivate:", $cell);
+    });
+    gridb.events.on("row:select", function ($row) {
+        console.info("row select:", $row);
+    });
+    gridb.events.on("row:remove", function (data, row, $row) {
+        console.info("row remove:", data, row, $row);
+    });
+    gridb.events.on("row:mark", function ($row) {
+        console.info("row mark:", $row);
+    });
+    gridb.events.on("row:unmark", function ($row) {
+        console.info("row unmark:", $row);
+    });
+    gridb.events.on("row:save", function (data, $row, source) {
+        console.info("row save:", source, data);
+        // save row via ajax or any other way
+        // simulate delay caused by ajax and set row as saved
+        setTimeout(function () {
+            gridb.setRowSaved($row);
+        }, 1000);
+    });
+
+    // implement basic sorting
+    gridb.events.on("column:sort", function (col, order, $el) {
+        console.info("column sort:", col, order, $el);
+        var sorted = _.sortBy(data, col);
+        if (order === "desc") {
+            sorted = sorted.reverse();
+        }
+        gridb.updateData(sorted);
+    });
+
+    // render grid
+    gridb.render();
+// ------------------
 
     // api examples
     var $row = grid.getRowByIndex(5);
