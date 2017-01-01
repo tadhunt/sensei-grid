@@ -23,8 +23,9 @@
 
 .sensei-grid-table-wrapper > table td,
 .sensei-grid-table-wrapper > table th {
-    white-space: nowrap;
-    overflow: hidden;
+    white-space: normal;
+    overflow: auto;
+    min-width: 110px;
 }
 
 .sensei-grid-table-wrapper > table td > div,
